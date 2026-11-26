@@ -1,0 +1,13 @@
+import {Router} from 'express';
+import {protect} from '../middleware/authMiddleware.js';
+import {listRooms,createRoom,joinRoom,leaveRoom,getMessages,sendMessage} from '../controllers/roomController.js';
+import {getNotes,saveNotes,listPolls,createPoll,votePoll,listTasks,createTask,updateTask,smartSummary} from '../controllers/workspaceController.js';
+const router=Router(); router.use(protect);
+router.get('/',listRooms); router.post('/',createRoom);
+router.post('/:id/join',joinRoom); router.post('/:id/leave',leaveRoom);
+router.get('/:id/messages',getMessages); router.post('/:id/messages',sendMessage);
+router.get('/:id/notes',getNotes); router.put('/:id/notes',saveNotes);
+router.get('/:id/polls',listPolls); router.post('/:id/polls',createPoll); router.post('/:id/polls/:pollId/vote',votePoll);
+router.get('/:id/tasks',listTasks); router.post('/:id/tasks',createTask); router.patch('/:id/tasks/:taskId',updateTask);
+router.get('/:id/summary',smartSummary);
+export default router;
